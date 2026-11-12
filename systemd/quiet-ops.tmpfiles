@@ -1,0 +1,4 @@
+d /run/quiet-ops 0750 root quiet-ops -
+d /var/lib/quiet-ops 0711 quiet-ops quiet-ops -
+d /var/lib/quiet-ops/sites 0711 quiet-ops quiet-ops -
+d /var/log/quiet-ops 0750 quiet-ops quiet-ops -

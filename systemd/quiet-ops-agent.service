@@ -1,0 +1,34 @@
+[Unit]
+Description=Quiet Ops typed host agent
+After=local-fs.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=PANEL_AGENT_SOCKET=/run/quiet-ops/agent.sock
+Environment=PANEL_SITE_ROOT=/var/lib/quiet-ops/sites
+Environment=PANEL_GENERATED_ROOT=/var/lib/quiet-ops/generated
+Environment=PANEL_NGINX_CONFIG_ROOT=/etc/nginx/conf.d
+Environment=PANEL_OLS_CONFIG_ROOT=/usr/local/lsws/conf/vhosts
+Environment=PANEL_SYSTEMD_UNIT_ROOT=/etc/systemd/system
+Environment=PANEL_PHP_FPM_POOL_ROOT=/etc/php/8.3/fpm/pool.d
+Environment=PANEL_CRON_ROOT=/etc/cron.d
+# Keep the agent non-mutating until the Ubuntu 24.04 acceptance gate passes.
+Environment=PANEL_AGENT_LIVE=0
+EnvironmentFile=-/etc/quiet-ops/agent.env
+ExecStart=/opt/quiet-ops/panel-agentd
+Restart=on-failure
+RestartSec=3
+ProtectSystem=off
+ProtectHome=yes
+PrivateTmp=yes
+MemoryHigh=384M
+MemoryMax=512M
+CPUQuota=100%
+TasksMax=512
+ReadWritePaths=/run/quiet-ops /var/lib/quiet-ops /usr/local/lsws/conf/vhosts
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

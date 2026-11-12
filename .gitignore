@@ -1,0 +1,8 @@
+node_modules/
+data/
+dist/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+panel-agentd
+.DS_Store

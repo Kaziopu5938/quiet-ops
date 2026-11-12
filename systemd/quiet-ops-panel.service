@@ -1,0 +1,30 @@
+[Unit]
+Description=Quiet Ops control plane
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=quiet-ops
+Group=quiet-ops
+WorkingDirectory=/opt/quiet-ops
+Environment=PANEL_DATA_DIR=/var/lib/quiet-ops
+Environment=PANEL_PORT=8787
+Environment=PANEL_BIND=127.0.0.1
+Environment=PANEL_TLS=1
+Environment=PANEL_AGENT_SOCKET=/run/quiet-ops/agent.sock
+EnvironmentFile=-/etc/quiet-ops/panel.env
+ExecStart=/usr/bin/node /opt/quiet-ops/server/index.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=tmpfs
+ReadWritePaths=/var/lib/quiet-ops /var/log/quiet-ops /run/quiet-ops
+MemoryHigh=192M
+MemoryMax=256M
+TasksMax=256
+
+[Install]
+WantedBy=multi-user.target

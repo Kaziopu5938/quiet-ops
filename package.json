@@ -1,0 +1,29 @@
+{
+  "name": "quiet-ops-panel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A lightweight single-node hosting control panel for static, WordPress, Next.js, and Node.js sites.",
+  "scripts": {
+    "dev": "concurrently -k \"node server/index.mjs\" \"vite --host 127.0.0.1\"",
+    "server": "node server/index.mjs",
+    "build": "vite build",
+    "preflight": "node scripts/preflight.mjs",
+    "acceptance": "node scripts/acceptance.mjs",
+    "agent:build": "cd agent && go build -o ../panel-agentd .",
+    "test": "node --test",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "concurrently": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  }
+}
